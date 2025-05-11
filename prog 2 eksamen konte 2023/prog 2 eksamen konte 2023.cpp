@@ -68,16 +68,20 @@ public:
 		m_eiere.push_back(eier);
 	}
 
-	void legg_til_bil(std::string person_nr, std::string merke, std::string modell, std::string antall_seter) {
-		std::shared_ptr<person> eier;
+	void legg_til_bil(std::string person_nr, std::string merke, std::string modell, unsigned int antall_seter) {
 		for (auto it = m_eiere.begin(); it != m_eiere.end(); it++) {
 			if ((*it)->get_person_nr() == person_nr) {
-				std::shared_ptr<bil> eier  = std::make_shared<bil>(person_nr, merke, modell, antall_seter);
-				eier->legg_til_kjoretoy(bil);
+				auto ny_bil = std::make_shared<bil>(person_nr, merke, modell, antall_seter);
+				(*it)->legg_til_kjoretoy(ny_bil);
+				return;
 			}
+
 		}
 
+		throw unntak();
 	}
+
+	void legg_til_motorsykkel();
 };
 
 
