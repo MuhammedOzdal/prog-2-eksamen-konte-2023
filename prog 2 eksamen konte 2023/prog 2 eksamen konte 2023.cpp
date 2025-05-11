@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 class kjoretoy {
 private:
@@ -81,7 +82,27 @@ public:
 		throw unntak();
 	}
 
-	void legg_til_motorsykkel();
+	void legg_til_motorsykkel(std::string person_nr, std::string merke, std::string modell, bool sidevogn) {
+		for (auto it = m_eiere.begin(); it != m_eiere.end(); it++) {
+			if ((*it)->get_person_nr() == person_nr) {
+				auto ny_motorsykkel = std::make_shared<motorsykkel>(person_nr, merke, modell, sidevogn);
+				(*it)->legg_til_kjoretoy(ny_motorsykkel);
+				return;
+			}
+		}
+		throw unntak();
+	}
+
+	void beregn_avgifter(double avgift_pr_bil, double avgift_pr_motorsykkel) {
+		//lager fil med øsnket navn
+		std::ofstream file("avgifter.txt");
+		for (auto it = m_eiere.begin(); it != m_eiere.end(); it++) {
+			
+
+		}
+
+
+	}
 };
 
 
